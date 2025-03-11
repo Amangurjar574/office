@@ -10,7 +10,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
 @Slf4j
 @RestController
 @RequestMapping("/{version}/api/user")
@@ -120,19 +123,27 @@ public class usercontroller {
         }
     }
 
-    @GetMapping("/check/token")
-    public ResponseEntity<String> checkToken(@Param("email") String email,@Param("token") String token)
+    @RequestMapping("/check/token")
+    public ModelAndView checkToken(@Param("email") String email, @Param("token") String token)
     {
+        ModelAndView modal = new ModelAndView();
         UserErrorSuccess user_errorSuccess =userServiceImplements.checkToken(email,token);
             if(user_errorSuccess instanceof SuccessDetailsModel){
-                HttpHeaders headers = new HttpHeaders();
-                headers.add("Location", "emailsender");
-                return new ResponseEntity<String>(headers, HttpStatus.FOUND);
-//                return "redirect:/view/emailsender?email=" + email + "&token=" + token;
+                modal.setViewName("emailsender.jsp?email="+email+"&token="+token);
+                return modal;
             }
             else{
-                return new ResponseEntity<String>("", HttpStatus.FOUND);
+                return modal;
             }
-    }
+        }
 
 }
+/*
+*                //HttpHeaders headers = new HttpHeaders();
+                 //headers.add("Location", "redirect:emailsender?email=" + email +"&token=" + token);
+                 // return new ResponseEntity<String>(headers, HttpStatus.FOUND);
+ *               //  return new ResponseEntity<String>("redirect:emailsender?email=" + email +"&token=" + token, HttpStatus.FOUND);
+
+*
+*
+* */

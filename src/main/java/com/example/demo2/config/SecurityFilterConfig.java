@@ -24,7 +24,7 @@ public class SecurityFilterConfig {
     public SecurityFilterChain filterChain(HttpSecurity security) throws Exception {
             return security.csrf(csrf -> csrf.disable())
                     .cors(cors -> cors.disable())
-                    .authorizeHttpRequests(auth -> auth.requestMatchers("/v1/api/user/check/token","/view/emailsender","/login","/v1/api/user/user").permitAll()
+                    .authorizeHttpRequests(auth -> auth.requestMatchers("/views/emailsender.jsp","/login","/v1/api/user/user","/v1/api/user/check/token").permitAll()
                             .anyRequest().authenticated())
                     .exceptionHandling(ex -> ex.authenticationEntryPoint(point))
                     .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
