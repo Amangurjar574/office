@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>Data Segmentation</artifactId>
+	<artifactId>Data-Segmentation</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Data Segmentation</name>
-	<description>Demo project for checking </description>
+	<description>Data Segmentation project</description>
 	<url/>
 	<licenses>
 		<license/>

@@ -26,58 +26,64 @@ public class usercontroller {
     UserServiceImplements userServiceImplements;
 
     @DeleteMapping("/user/delete")
-    @Operation(summary ="for delete User  By Id.")
-    public ResponseEntity<Object> deleteUser(@Param("userid") long userid) {
+    @Operation(summary = "For delete User By Id.")
+    public ResponseEntity<Object> deleteUser(@RequestParam("userid") long userid) {
         if (userid > 0) {
             try {
                 UserErrorSuccess result = userServiceImplements.deleteUser(userid);
                 if (result instanceof SuccessDetailsModel) {
-                    log.info(((SuccessDetailsModel) result).getSuccess()+":"+((SuccessDetailsModel) result).getDetails()+"  :  "+HttpStatus.OK);
+                    log.info("User deleted successfully: " + ((SuccessDetailsModel) result).getSuccess() + ": " + ((SuccessDetailsModel) result).getDetails());
                     return new ResponseEntity<>(result, HttpStatus.OK); // 200 OK
                 } else if (result instanceof UserErrorModel) {
-                    log.error(((UserErrorModel) result).getError()+""+((UserErrorModel) result).getDetails()+"  :  "+HttpStatus.BAD_REQUEST);
-                    return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST); // 400 Bad Request not a 409 conflict
+                    log.warn("Error deleting user: " + ((UserErrorModel) result).getError() + ": " + ((UserErrorModel) result).getDetails());
+                    return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST); // 400 Bad Request
                 } else if (result instanceof UserDataNotFoundModel) {
-                    log.error(((UserDataNotFoundModel) result).getError()+"  :  "+HttpStatus.NOT_FOUND);
+                    log.warn("User not found: " + ((UserDataNotFoundModel) result).getError());
                     return new ResponseEntity<>(result, HttpStatus.NOT_FOUND); // 404 Not Found
                 } else {
-                    log.error("INTERNAL_SERVER_ERROR"+result+"  :  "+HttpStatus.INTERNAL_SERVER_ERROR);
+                    log.error("Internal server error while deleting user: " + result);
                     return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
                 }
             } catch (Exception e) {
-                log.error("An unexpected error occurred: " + e.getMessage()+HttpStatus.INTERNAL_SERVER_ERROR);
+                log.error("An unexpected error occurred while deleting user: " + e.getMessage(), e);
                 return new ResponseEntity<>("An unexpected error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
             }
         } else {
-            log.warn("Please provide a valid user ID..."+HttpStatus.BAD_REQUEST);
+            log.warn("Invalid user ID provided for deletion: " + userid);
             return new ResponseEntity<>("Please provide a valid user ID.", HttpStatus.BAD_REQUEST); // 400 Bad Request
         }
     }
-
     @PostMapping("/user")
-    @Operation(summary ="for Create User")
-    public ResponseEntity<String> createUser(@RequestBody CreateUserModel createUserModel) {
+    @Operation(summary = "For creating a new user")
+    public ResponseEntity<Object> createUser(@RequestBody CreateUserModel createUserModel) {
         // Check if the required fields are present
         if (createUserModel.getName() != null && createUserModel.getEmail() != null && createUserModel.getRole() != null) {
             try {
                 UserErrorSuccess result = userServiceImplements.createUser(createUserModel);
+
+                // Handle success result
                 if (result instanceof SuccessDetailsModel) {
-                    log.info(((SuccessDetailsModel) result).getSuccess()+".:"+((SuccessDetailsModel) result).getDetails()+"  :  "+HttpStatus.CREATED);
-                    return new ResponseEntity<>(((SuccessDetailsModel) result).getSuccess(), HttpStatus.CREATED); // 201 Created
-                } else if (result instanceof UserErrorModel) {
-                    log.error(((UserErrorModel) result).getError()+".:"+((UserErrorModel) result).getDetails()+"  :  "+HttpStatus.BAD_REQUEST);
-                    return new ResponseEntity<>(((UserErrorModel) result).getError(), HttpStatus.BAD_REQUEST); // 400 Bad Request
-                } else {
-                    // Catch-all for unexpected issues
-                    log.error("An unexpected server error occurred:", HttpStatus.INTERNAL_SERVER_ERROR);
-                    return new ResponseEntity<>( "An unexpected server error occurred", HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
+                    SuccessDetailsModel successDetails = (SuccessDetailsModel) result;
+                    log.info("User created successfully: " + successDetails.getSuccess() + " : " + successDetails.getDetails());
+                    return new ResponseEntity<>(successDetails, HttpStatus.CREATED); // 201 Created
                 }
-            }catch (Exception e) {
-                log.error("An unexpected error occurred:", HttpStatus.INTERNAL_SERVER_ERROR);
+                // Handle user error (e.g., invalid data)
+                else if (result instanceof UserErrorModel) {
+                    UserErrorModel userError = (UserErrorModel) result;
+                    log.warn("Error creating user: " + userError.getError() + " : " + userError.getDetails());
+                    return new ResponseEntity<>(userError, HttpStatus.BAD_REQUEST); // 400 Bad Request
+                }
+                else {
+                    log.error("Unexpected server error while creating user: " + result);
+                    return new ResponseEntity<>("An unexpected server error occurred.", HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
+                }
+            } catch (Exception e) {
+                log.error("An unexpected error occurred during user creation: ", e);
                 return new ResponseEntity<>("An unexpected error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
             }
         } else {
-            log.warn("Please provide valid data.");
+
+            log.warn("Missing required user data (name, email, or role).");
             return new ResponseEntity<>("Please provide valid data.", HttpStatus.BAD_REQUEST); // 400 Bad Request
         }
     }
@@ -89,21 +95,21 @@ public class usercontroller {
             try {
                  UserErrorSuccess result = userServiceImplements.updateUser(userEdit_details_model);
                 if (result instanceof SuccessDetailsModel) {
-                    log.info(((SuccessDetailsModel) result).getSuccess()+" : "+HttpStatus.OK);
+                    log.info(((SuccessDetailsModel) result).getSuccess(),HttpStatus.OK);
                     return new ResponseEntity<>(result, HttpStatus.OK); // 200 OK
                 } else if (result instanceof UserErrorModel) {
-                    log.error(((UserErrorModel) result).getError()+" : "+HttpStatus.NOT_FOUND);
+                    log.warn(((UserErrorModel) result).getError(),HttpStatus.NOT_FOUND);
                     return new ResponseEntity<>(result, HttpStatus.NOT_FOUND); // 404 Not Found
                 } else {
-                    log.error(((UserErrorModel) result).getError()+" : "+HttpStatus.INTERNAL_SERVER_ERROR);
+                    log.error(((UserErrorModel) result).getError(),HttpStatus.INTERNAL_SERVER_ERROR);
                     return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
                 }
             } catch (Exception e) {
-                log.error("An unexpected error occurred : "+HttpStatus.INTERNAL_SERVER_ERROR);
+                log.error("An unexpected error occurred : ",HttpStatus.INTERNAL_SERVER_ERROR);
                 return new ResponseEntity<>("An unexpected error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
             }
         } else {
-            log.error("Please provide a valid user ID."+HttpStatus.BAD_REQUEST);
+            log.error("Please provide a valid user ID.",HttpStatus.BAD_REQUEST);
             return new ResponseEntity<>("Please provide a valid user ID.", HttpStatus.BAD_REQUEST); // 400 Bad Request
         }
     }
@@ -114,32 +120,40 @@ public class usercontroller {
         if (userid > 0) {
             User_Detail userDetail = userServiceImplements.userSearch(userid);
             if (userDetail != null) {
+                log.info(userDetail.toString(),HttpStatus.OK);
                 return new ResponseEntity<>(userDetail, HttpStatus.OK);// Return the user details with a 200 OK status
             } else {
-                return new ResponseEntity<>(new UserDataNotFoundModel("Not found data. id:"+userid),HttpStatus.NOT_FOUND);// User not found, return 404 Not Found
+                UserDataNotFoundModel userDataNotFoundModel=new UserDataNotFoundModel("Not found data. id:"+userid);
+                log.warn(userDataNotFoundModel.getError(),HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(userDataNotFoundModel,HttpStatus.NOT_FOUND);// User not found, return 404 Not Found
             }
         } else {
+            log.warn("Invalid user ID provided.",HttpStatus.BAD_REQUEST);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);// Invalid user ID provided, return 400 Bad Request
         }
     }
-
     @PatchMapping("/reset/password")
     @Operation(summary ="for reset and set password of user")
     public ResponseEntity<String> enable_Disble_User(@RequestBody JwtRequest jwtRequest) {
 
         if (jwtRequest.getEmail() == null || jwtRequest.getEmail().isEmpty() || jwtRequest.getPassword() == null || jwtRequest.getPassword().isEmpty()) {
+          log.warn("Email and password are required : ", HttpStatus.BAD_REQUEST);
             return new ResponseEntity<>("Email and password are required.", HttpStatus.BAD_REQUEST); // 400 Bad Request
         }
         try {
             UserErrorSuccess result = userServiceImplements.set_password(jwtRequest);
             if (result instanceof SuccessDetailsModel) {
+                log.info(((SuccessDetailsModel) result).getSuccess()+" : "+HttpStatus.OK);
                 return new ResponseEntity<>("Your password has been successfully set, and you are now eligible to log in...", HttpStatus.OK); // 200 OK
             } else if (result instanceof UserDataNotFoundModel) {
+                log.warn(((UserDataNotFoundModel) result).getError()+" : "+HttpStatus.NOT_FOUND);
                 return new ResponseEntity<>("data not found....email is wrong...", HttpStatus.NOT_FOUND); // 404 Not Found
             } else {
+                log.error("Unexpected error occurred. : "+HttpStatus.INTERNAL_SERVER_ERROR);
                 return new ResponseEntity<>("Unexpected error occurred.", HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
             }
         } catch (Exception e) {
+            log.error("An unexpected error occurred : "+HttpStatus.INTERNAL_SERVER_ERROR);
             return new ResponseEntity<>("An unexpected error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
         }
     }

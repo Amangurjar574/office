@@ -1,28 +1,28 @@
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\config\SecurityFilterConfig.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\config\SpringSecurity.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\config\SwaggerConfig.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\controller\JwtAuthenticationController.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\controller\usercontroller.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\controller\ViewController.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\Demo2Application.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\entity\User_Detail.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\jwt_security\JwtAuthenticationEntryPoint.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\jwt_security\JWTAuthenticationFilter.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\jwt_security\JwtHelper.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\model\CreateUserModel.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\model\ErrorResponse.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\model\InternalServerErrorModel.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\model\JwtRequest.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\model\JwtResponse.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\model\SuccessDetailsModel.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\model\UserDataNotFoundModel.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\model\UserEditDetailsModel.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\model\UserErrorModel.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\model_service\UserErrorSuccess.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\repo\userRepo.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\Service\EmailSender.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\Service\User_Service.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\ServiceImpl\CustomUserDetailsService.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\ServiceImpl\EmailSenderImplements.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\ServiceImpl\UserServiceImplements.java
-E:\D.sir\temp project\demo2\demo2\src\main\java\com\example\demo2\utility\DataSegmentationConstants.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\config\SecurityFilterConfig.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\config\SpringSecurity.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\config\SwaggerConfig.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\controller\JwtAuthenticationController.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\controller\usercontroller.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\controller\ViewController.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\Demo2Application.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\entity\User_Detail.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\jwt_security\JwtAuthenticationEntryPoint.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\jwt_security\JWTAuthenticationFilter.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\jwt_security\JwtHelper.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\model\CreateUserModel.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\model\ErrorResponse.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\model\InternalServerErrorModel.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\model\JwtRequest.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\model\JwtResponse.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\model\SuccessDetailsModel.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\model\UserDataNotFoundModel.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\model\UserEditDetailsModel.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\model\UserErrorModel.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\model_service\UserErrorSuccess.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\repo\userRepo.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\Service\EmailSender.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\Service\User_Service.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\ServiceImpl\CustomUserDetailsService.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\ServiceImpl\EmailSenderImplements.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\ServiceImpl\UserServiceImplements.java
+E:\D.sir\temp project\Data Segmentation\Data Segmentation\src\main\java\com\example\demo2\utility\DataSegmentationConstants.java
