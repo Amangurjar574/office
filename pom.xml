@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>demo2</artifactId>
+	<artifactId>Data Segmentation</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo2</name>
+	<name>Data Segmentation</name>
 	<description>Demo project for checking </description>
 	<url/>
 	<licenses>

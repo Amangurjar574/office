@@ -6,6 +6,7 @@ import com.example.demo2.model.ErrorResponse;
 import com.example.demo2.model.JwtRequest;
 import com.example.demo2.model.JwtResponse;
 import com.example.demo2.repo.userRepo;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class JwtAuthenticationController {
     @Autowired
     userRepo empRepo;
     @PostMapping("/login")
+    @Operation(summary ="for login and generateToken")
     public ResponseEntity<Object> login(@RequestBody JwtRequest request) {
         try {
             // Authenticate user credentials

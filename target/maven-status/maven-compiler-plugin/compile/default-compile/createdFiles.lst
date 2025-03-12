@@ -27,6 +27,7 @@ com\example\demo2\model\UserDataNotFoundModel.class
 com\example\demo2\jwt_security\JwtHelper.class
 com\example\demo2\model\CreateUserModel.class
 com\example\demo2\ServiceImpl\EmailSenderImplements$1.class
+com\example\demo2\config\SwaggerConfig.class
 com\example\demo2\entity\User_Detail.class
 com\example\demo2\model\SuccessDetailsModel.class
 com\example\demo2\ServiceImpl\CustomUserDetailsService.class

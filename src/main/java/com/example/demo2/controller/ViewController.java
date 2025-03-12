@@ -1,6 +1,7 @@
 package com.example.demo2.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ViewController {
 
 	@GetMapping("/emailsender")
+
 	public ResponseEntity<String> showEmailSenderPage(@RequestParam String email, @RequestParam String token) {
 		// Pass the email and token as model attributes if needed
 		HttpHeaders headers = new HttpHeaders();

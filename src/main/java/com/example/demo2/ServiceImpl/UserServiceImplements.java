@@ -52,6 +52,7 @@ public class UserServiceImplements implements User_Service {
         User_Detail savedUser = userRepo.save(userDetail);
           if (isUserExists(savedUser) && savedUser.getUserid() > 0)
           {
+
             return new SuccessDetailsModel("User created successfully",createUserModel.getEmail());
           }
         else
@@ -107,7 +108,7 @@ public class UserServiceImplements implements User_Service {
             userDetail.setRole(userEdit_details_model.getRole() != null ? userEdit_details_model.getRole() : userDetail.getRole());
             userDetail.setUserid(userEdit_details_model.getUserid() <=0 ?userEdit_details_model.getUserid(): userDetail.getUserid());
             User_Detail savedUser = userRepo.save(userDetail);
-            if (isUserExists(savedUser) && savedUser.getUserid() > 0)
+            if (isUserExists(savedUser))
                 return new SuccessDetailsModel("user successfully updated",userDetail.getEmail());
             else
                 return new UserErrorModel("Error occurred while saving user.","id : "+userEdit_details_model.getUserid(),null);
@@ -119,7 +120,9 @@ public class UserServiceImplements implements User_Service {
 
     @Override
     public User_Detail userSearch(long id) {
-        return userRepo.findByUserid(id);
+        User_Detail userDetail= userRepo.findByUserid(id);
+        userDetail.setPassword("...");
+        return userDetail;
     }
 
     @Override
@@ -142,6 +145,7 @@ public class UserServiceImplements implements User_Service {
         if (isUserExists(userDetail)) {
             userDetail.setPassword(passwordEncoder.encode(jwtRequest.getPassword()));
             userDetail.setStatus("Active");
+            userDetail.setJwtforsetpassword(null);
             User_Detail savedUser = userRepo.save(userDetail);
             if (isUserExists(savedUser) && savedUser.getUserid() > 0) {
             return new SuccessDetailsModel("Your password has been successfully set, and you are now eligible to log in...",userDetail.getEmail());
