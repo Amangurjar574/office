@@ -136,11 +136,11 @@ public class UserServiceImplements implements User_Service {
     }
 
     @Override
-    public UserErrorSuccess set_password(UserResetPasswordModel userResetPassword) {
-        User_Detail userDetail = userRepo.findByEmail(userResetPassword.getEmail());
+    public UserErrorSuccess set_password(JwtRequest jwtRequest) {
+        User_Detail userDetail = userRepo.findByEmail(jwtRequest.getEmail());
 
         if (isUserExists(userDetail)) {
-            userDetail.setPassword(passwordEncoder.encode(userResetPassword.getPassword()));
+            userDetail.setPassword(passwordEncoder.encode(jwtRequest.getPassword()));
             userDetail.setStatus("Active");
             User_Detail savedUser = userRepo.save(userDetail);
             if (isUserExists(savedUser) && savedUser.getUserid() > 0) {

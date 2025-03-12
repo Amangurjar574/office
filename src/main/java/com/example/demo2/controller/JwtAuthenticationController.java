@@ -63,7 +63,7 @@ public class JwtAuthenticationController {
             return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED); // 401 Unauthorized
         } catch (Exception e) {
             // Handle other unexpected errors, return 500 Internal Server Error
-            ErrorResponse errorResponse = new ErrorResponse("An error occurred", "An unexpected error occurred while processing your request.");
+            ErrorResponse errorResponse = new   ErrorResponse("An error occurred", "An unexpected error occurred while processing your request.");
             return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
         }
     }

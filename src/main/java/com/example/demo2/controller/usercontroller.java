@@ -22,19 +22,19 @@ public class usercontroller {
     @Autowired
     UserServiceImplements userServiceImplements;
 
-    @DeleteMapping("/user")
-    public ResponseEntity<String> deleteUser(@Param("userid") long userid) {
+    @DeleteMapping("/user/delete")
+    public ResponseEntity<Object> deleteUser(@Param("userid") long userid) {
         if (userid > 0) {
             try {
                 UserErrorSuccess result = userServiceImplements.deleteUser(userid);
                 if (result instanceof SuccessDetailsModel) {
-                    return new ResponseEntity<>("User successfully deleted", HttpStatus.OK); // 200 OK
+                    return new ResponseEntity<>(result, HttpStatus.OK); // 200 OK
                 } else if (result instanceof UserErrorModel) {
-                    return new ResponseEntity<>("User is already deleted", HttpStatus.BAD_REQUEST); // 400 Bad Request not a 409 conflict
+                    return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST); // 400 Bad Request not a 409 conflict
                 } else if (result instanceof UserDataNotFoundModel) {
-                    return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND); // 404 Not Found
+                    return new ResponseEntity<>(result, HttpStatus.NOT_FOUND); // 404 Not Found
                 } else {
-                    return new ResponseEntity<>("Unexpected error occurred.", HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
+                    return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
                 }
             } catch (Exception e) {
                 return new ResponseEntity<>("An unexpected error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
@@ -69,17 +69,17 @@ public class usercontroller {
         }
     }
 
-    @PutMapping("/user")
-    public ResponseEntity<String> editUser(@RequestBody UserEditDetailsModel userEdit_details_model) {
+    @PutMapping("/user/edit")
+    public ResponseEntity<Object> editUser(@RequestBody UserEditDetailsModel userEdit_details_model) {
         if (userEdit_details_model.getUserid() > 0) {
             try {
                  UserErrorSuccess result = userServiceImplements.updateUser(userEdit_details_model);
                 if (result instanceof SuccessDetailsModel) {
-                    return new ResponseEntity<>("user successfully updated", HttpStatus.OK); // 200 OK
+                    return new ResponseEntity<>(result, HttpStatus.OK); // 200 OK
                 } else if (result instanceof UserErrorModel) {
-                    return new ResponseEntity<>("data not found...", HttpStatus.NOT_FOUND); // 404 Not Found
+                    return new ResponseEntity<>(result, HttpStatus.NOT_FOUND); // 404 Not Found
                 } else {
-                    return new ResponseEntity<>("Unexpected error occurred.", HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
+                    return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
                 }
             } catch (Exception e) {
                 return new ResponseEntity<>("An unexpected error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
@@ -89,7 +89,7 @@ public class usercontroller {
         }
     }
 
-    @GetMapping("/user")
+    @GetMapping("/user/search")
     public ResponseEntity<User_Detail> getByUserid(@Param("userid") long userid) {
         if (userid > 0) {
             User_Detail userDetail = userServiceImplements.userSearch(userid);
@@ -104,13 +104,13 @@ public class usercontroller {
     }
 
     @PatchMapping("/reset/password")
-    public ResponseEntity<String> enable_Disble_User(@RequestBody UserResetPasswordModel userResetPassword) {
+    public ResponseEntity<String> enable_Disble_User(@RequestBody JwtRequest jwtRequest) {
 
-        if (userResetPassword.getEmail() == null || userResetPassword.getEmail().isEmpty() || userResetPassword.getPassword() == null || userResetPassword.getPassword().isEmpty()) {
+        if (jwtRequest.getEmail() == null || jwtRequest.getEmail().isEmpty() || jwtRequest.getPassword() == null || jwtRequest.getPassword().isEmpty()) {
             return new ResponseEntity<>("Email and password are required.", HttpStatus.BAD_REQUEST); // 400 Bad Request
         }
         try {
-            UserErrorSuccess result = userServiceImplements.set_password(userResetPassword);
+            UserErrorSuccess result = userServiceImplements.set_password(jwtRequest);
             if (result instanceof SuccessDetailsModel) {
                 return new ResponseEntity<>("Your password has been successfully set, and you are now eligible to log in...", HttpStatus.OK); // 200 OK
             } else if (result instanceof UserDataNotFoundModel) {
