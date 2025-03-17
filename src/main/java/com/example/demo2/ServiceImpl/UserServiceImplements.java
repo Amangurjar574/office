@@ -8,9 +8,12 @@ import com.example.demo2.repo.userRepo;
 import com.example.demo2.utility.DataSegmentationConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -26,7 +29,7 @@ public class UserServiceImplements implements User_Service {
     PasswordEncoder passwordEncoder;
 
 
-    private boolean isUserExists(User_Detail user) {
+    public boolean isUserExists(User_Detail user) {
         return Optional.ofNullable(user).isPresent();
     }
     @Override
@@ -42,13 +45,11 @@ public class UserServiceImplements implements User_Service {
         userDetail.setEmail(createUserModel.getEmail());
         userDetail.setName(createUserModel.getName());
         userDetail.setRole(createUserModel.getRole());
-
+        userDetail.setCreated_date(LocalDateTime.now());
         String token=createToken();
         userDetail.setJwtforsetpassword(token);
         String tokenurl = crearteUrl(createUserModel.getEmail(),token); // url for set password
-
         emailSenderImplements.sendEmail(createUserModel.getEmail(), "Set your password", DataSegmentationConstants.messagetemplateFirst+tokenurl+DataSegmentationConstants.getMessagetemplateLast);
-
         User_Detail savedUser = userRepo.save(userDetail);
           if (isUserExists(savedUser) && savedUser.getUserid() > 0)
           {
@@ -76,11 +77,11 @@ public class UserServiceImplements implements User_Service {
     public UserErrorSuccess deleteUser(long id) {
 
         User_Detail userDetail = userRepo.findByUserid(id);
-
         // Check if the user exists
         if (isUserExists(userDetail)) {
             if (!userDetail.isDeleted()) {
                 userDetail.setDeleted(true);
+                userDetail.setUpdate_date(LocalDateTime.now());
                 User_Detail savedUser = userRepo.save(userDetail);
                 if (isUserExists(savedUser) && savedUser.getUserid() > 0){
                     return new SuccessDetailsModel("User successfully deleted","id:"+id);
@@ -107,6 +108,7 @@ public class UserServiceImplements implements User_Service {
             userDetail.setName(userEdit_details_model.getName() != null ? userEdit_details_model.getName() : userDetail.getName());
             userDetail.setRole(userEdit_details_model.getRole() != null ? userEdit_details_model.getRole() : userDetail.getRole());
             userDetail.setUserid(userEdit_details_model.getUserid() <=0 ?userEdit_details_model.getUserid(): userDetail.getUserid());
+            userDetail.setUpdate_date(LocalDateTime.now());
             User_Detail savedUser = userRepo.save(userDetail);
             if (isUserExists(savedUser))
                 return new SuccessDetailsModel("user successfully updated",userDetail.getEmail());
@@ -121,6 +123,7 @@ public class UserServiceImplements implements User_Service {
     @Override
     public User_Detail userSearch(long id) {
         User_Detail userDetail= userRepo.findByUserid(id);
+        if(isUserExists(userDetail))
         userDetail.setPassword("...");
         return userDetail;
     }
@@ -146,7 +149,10 @@ public class UserServiceImplements implements User_Service {
             userDetail.setPassword(passwordEncoder.encode(jwtRequest.getPassword()));
             userDetail.setStatus("Active");
             userDetail.setJwtforsetpassword(null);
+//            userDetail.setUpdate_date(LocalDate.now());
+//            userDetail.getUpdate_date(LocalDateTime.now());
             User_Detail savedUser = userRepo.save(userDetail);
+
             if (isUserExists(savedUser) && savedUser.getUserid() > 0) {
             return new SuccessDetailsModel("Your password has been successfully set, and you are now eligible to log in...",userDetail.getEmail());
             }

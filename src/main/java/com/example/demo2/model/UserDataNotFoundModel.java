@@ -1,5 +1,6 @@
 package com.example.demo2.model;
 
+import com.example.demo2.model_service.ImportDataOfUserErrorSuccess;
 import com.example.demo2.model_service.UserErrorSuccess;
 import lombok.*;
 
@@ -8,6 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserDataNotFoundModel implements UserErrorSuccess {
+public class UserDataNotFoundModel implements UserErrorSuccess , ImportDataOfUserErrorSuccess    {
     String error;
 }

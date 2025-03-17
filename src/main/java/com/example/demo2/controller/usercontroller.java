@@ -57,7 +57,7 @@ public class usercontroller {
     @Operation(summary = "For creating a new user")
     public ResponseEntity<Object> createUser(@RequestBody CreateUserModel createUserModel) {
         // Check if the required fields are present
-        if (createUserModel.getName() != null && createUserModel.getEmail() != null && createUserModel.getRole() != null) {
+        if (createUserModel.getName() != null &&createUserModel.getName().length()>=1 && createUserModel.getEmail().endsWith("@gmail.com")&& createUserModel.getEmail().length()>=11 && createUserModel.getEmail() != null && createUserModel.getRole() != null &&createUserModel.getRole().length()>=4) {
             try {
                 UserErrorSuccess result = userServiceImplements.createUser(createUserModel);
                 // Handle success result

@@ -1,6 +1,6 @@
 package com.example.demo2.config;
 
-import com.example.demo2.ServiceImpl.CustomUserDetailsService;
+import com.example.demo2.ServiceImpl.CustomUserDetailsServiceImp;
 
 import com.example.demo2.repo.userRepo;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +21,7 @@ public class SpringSecurity {
     }
     @Bean
     public UserDetailsService userDetailsService(userRepo userRepository) {
-        return new CustomUserDetailsService(userRepository);
+        return new CustomUserDetailsServiceImp(userRepository);
     }
 
     @Bean

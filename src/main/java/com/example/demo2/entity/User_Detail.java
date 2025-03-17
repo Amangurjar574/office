@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -18,25 +21,32 @@ public class User_Detail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userid;
 
-    @Column
+    @Column(name="name" , nullable = false)
     private String name;
 
-    @Column(unique = true, nullable = false)
+    @Column(name="email" ,unique = true, nullable = false)
     private String email;
 
-    @Column
+
+    @Column(name = "password")
     private String password;
 
-    @Column
+    @Column(name = "role", nullable = false)
     private String role ;
 
-    @Column
+    @Column(name = "status", nullable = false)
     private  String status="deactivate";
 
-    @Column
+    @Column(name = "isDeleted", nullable = false)
     private  boolean isDeleted=false;
 
-     @Column
+    @Column(name = "created_date")
+    private LocalDateTime created_date;
+
+    @Column(name = "Update_date")
+    private LocalDateTime Update_date;
+
+    @Column(name = "jwtforsetpassword")
     private String jwtforsetpassword="null";
 
 }

@@ -1,5 +1,6 @@
 package com.example.demo2.model;
 
+import com.example.demo2.model_service.ImportDataOfUserErrorSuccess;
 import com.example.demo2.model_service.UserErrorSuccess;
 import lombok.*;
 
@@ -8,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserErrorModel implements UserErrorSuccess {
+public class UserErrorModel implements UserErrorSuccess , ImportDataOfUserErrorSuccess {
     String error;
     String details;
     String[] extra;
