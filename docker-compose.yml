@@ -1,0 +1,22 @@
+  services:
+    app:
+      build: .
+      ports:
+        - "9098:9098"
+      depends_on:
+        - postgres
+      environment:
+        SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/empl
+        SPRING_DATASOURCE_USERNAME: postgres
+        SPRING_DATASOURCE_PASSWORD: root
+
+    postgres:
+      image: postgres:15
+#      restart: always
+      environment:
+        POSTGRES_DB: empl
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: root
+      ports:
+        - "5432:5432"
+

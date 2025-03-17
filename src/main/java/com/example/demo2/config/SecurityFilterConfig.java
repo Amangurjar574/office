@@ -22,13 +22,7 @@ public class SecurityFilterConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity security) throws Exception {
-
-
-
-
-
-
-        return security.csrf((c)->c.disable()).cors((c)->c.disable()).authorizeHttpRequests((a)->a.requestMatchers("/swagger-resources/**", "/v3/api-docs/**","/swagger-ui/**","/login","/v1/api/user/user","/v1/api/user/check/token","/v1/api/user/reset/password").permitAll()
+        return security.csrf((c)->c.disable()).cors((c)->c.disable()).authorizeHttpRequests((a)->a.requestMatchers("/swagger-resources/**", "/v3/api-docs/**","/swagger-ui/**","/login","/v1/api/user/user","/v1/api/user/check/token","/v1/api/user/reset/password","/views/emailsender.jsp").permitAll()
                 .anyRequest().authenticated())
                 .exceptionHandling((e)->e.authenticationEntryPoint(point))
                 .sessionManagement((s)->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

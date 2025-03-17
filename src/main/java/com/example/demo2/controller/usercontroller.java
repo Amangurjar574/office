@@ -60,7 +60,6 @@ public class usercontroller {
         if (createUserModel.getName() != null && createUserModel.getEmail() != null && createUserModel.getRole() != null) {
             try {
                 UserErrorSuccess result = userServiceImplements.createUser(createUserModel);
-
                 // Handle success result
                 if (result instanceof SuccessDetailsModel) {
                     SuccessDetailsModel successDetails = (SuccessDetailsModel) result;

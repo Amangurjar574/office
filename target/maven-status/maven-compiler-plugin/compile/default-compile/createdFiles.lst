@@ -10,7 +10,6 @@ com\example\demo2\model\InternalServerErrorModel.class
 com\example\demo2\model\UserDataNotFoundModel$UserDataNotFoundModelBuilder.class
 com\example\demo2\model\JwtRequest.class
 com\example\demo2\ServiceImpl\UserServiceImplements.class
-com\example\demo2\controller\ViewController.class
 com\example\demo2\model_service\UserErrorSuccess.class
 com\example\demo2\controller\usercontroller.class
 com\example\demo2\controller\JwtAuthenticationController.class
