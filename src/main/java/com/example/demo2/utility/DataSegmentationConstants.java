@@ -15,7 +15,7 @@ public class DataSegmentationConstants {
             + "[";
     public static final String getMessagetemplateLast="]\r\n"
             + "\r\n"
-            + "This url is valid for 5 minutes.\r\n"
+            + "This url is valid for 10 minutes.\r\n"
             + "\r\n"
             + "If you did not request this password set, please ignore this email.\r\n"
             + "\r\n"

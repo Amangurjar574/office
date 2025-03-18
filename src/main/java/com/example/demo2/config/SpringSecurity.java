@@ -1,6 +1,6 @@
 package com.example.demo2.config;
 
-import com.example.demo2.ServiceImpl.CustomUserDetailsServiceImp;
+import com.example.demo2.ServiceImpl.jwtimplements.CustomUserDetailsServiceImp;
 
 import com.example.demo2.repo.userRepo;
 import org.springframework.context.annotation.Bean;
